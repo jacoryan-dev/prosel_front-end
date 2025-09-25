@@ -48,13 +48,13 @@ const Login: React.FC = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       {/* Container Principal (Card) */}
       <div className="bg-white rounded-2xl shadow-[0px_10px_30px_10px_rgba(0,0,0,0.2)] p-8 w-full max-w-md">
+         
         {/* Logo b2bit */}
-        <div className="flex justify-center items-center mb-8">
-          <img
-            className="content-center align-center justify-center"
-            src="public/assets/logo.png"
-            alt="Logo b2bit"
-          />
+        <div className="text-center mb-8">
+          <h1 className="font-semibold text-4xl ">
+            <span className="text-[#02274F] text-9xl font-[poppins]">b2b</span>
+            <span className="text-[#FDCF00] text-9xl font-[poppins]">it</span>
+          </h1>
         </div>
 
         {/* Formulário com Formik */}
