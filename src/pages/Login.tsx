@@ -16,7 +16,6 @@ const schema = Yup.object({
 });
 
 function getErrorMessage(error: unknown): string {
-  // Narrowing para AxiosError<{ message?: string }>
   const axiosErr = error as AxiosError<{ message?: string }>;
   const apiMsg = axiosErr?.response?.data?.message;
   if (apiMsg && typeof apiMsg === "string") return apiMsg;
@@ -48,12 +47,15 @@ const Login: React.FC = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       {/* Container Principal (Card) */}
       <div className="bg-white rounded-2xl shadow-[0px_10px_30px_10px_rgba(0,0,0,0.2)] p-8 w-full max-w-md">
-         
         {/* Logo b2bit */}
         <div className="text-center mb-8">
-          <h1 className="font-semibold text-4xl ">
-            <span className="text-[#02274F] text-9xl font-[poppins]">b2b</span>
-            <span className="text-[#FDCF00] text-9xl font-[poppins]">it</span>
+          <h1 className="font-bold">
+            <span className="text-[#02274F] font-[poppins] text-8xl sm:text-9xl md:text-9xl lg:text-9xl xl:text-9xl 2xl:text-9xl">
+              b2b
+            </span>
+            <span className="text-[#FDCF00] font-[poppins] text-8xl sm:text-9xl md:text-9xl lg:text-9xl xl:text-9xl 2xl:text-9xl">
+              it
+            </span>
           </h1>
         </div>
 
