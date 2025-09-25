@@ -1,3 +1,4 @@
+// src/auth/AuthContext.tsx
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { api } from "../services/api";
@@ -5,13 +6,7 @@ import { storage } from "../utils/storage";
 import type { User, LoginResponse } from "../types/User";
 import type { AxiosError } from "axios";
 import { AuthContext } from "./useAuth";
-
-type AuthContextType = {
-  user: User | null;
-  loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-};
+import type { AuthContextType } from "./useAuth";
 
 function getAxiosMessage(error: unknown): string {
   const axiosErr = error as AxiosError<{ message?: string }>;
@@ -34,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     api
-      .get<User>("/profile")
+      .get<User>("/auth/profile/") // ✅ API direta
       .then((res) => setUser(res.data))
       .catch(() => {
         storage.clear();
@@ -45,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const { data } = await api.post<LoginResponse>("/login", {
+      const { data } = await api.post<LoginResponse>("/auth/login/", {
         email,
         password,
       });

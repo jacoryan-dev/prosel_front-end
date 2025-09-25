@@ -52,7 +52,7 @@ const Login: React.FC = () => {
         <div className="flex justify-center items-center mb-8">
           <img
             className="content-center align-center justify-center"
-            src="src/assets/logo.png"
+            src="public/assets/logo.png"
             alt="Logo b2bit"
           />
         </div>
