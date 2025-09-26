@@ -13,10 +13,6 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/test/setup.ts"],
     css: true,
-    // Disable browser mode and mocker to prevent MSW conflicts
-    browser: {
-      enabled: false,
-    },
     exclude: [
       "node_modules",
       "dist",
@@ -41,27 +37,23 @@ export default defineConfig({
         "tailwind.config.js",
         "eslint.config.js",
         // Also exclude MSW files from coverage
-        "**/server.ts", 
+        "**/server.ts",
         "**/handlers.ts",
         "**/server.ts.bak",
         "**/handlers.ts.bak",
       ],
     },
-    // Optimized configuration for CI environment - disable features that load Node modules
+    // Optimized configuration for CI environment
     isolate: true,
     pool: "forks",
     poolOptions: {
       forks: {
         singleFork: true,
-        isolate: true,
       },
     },
     // Additional environment configuration
     env: {
       NODE_ENV: "test",
     },
-    // Disable unstable features that might load external modules
-    unstubEnvs: false,
-    unstubGlobals: false,
   },
 });
