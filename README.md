@@ -1167,12 +1167,6 @@ SOFTWARE.
 
 ---
 
-### 🔝 [⬆️ Voltar ao topo](#-prosel-front-end--b2bit)
-
-**Versão:** 1.0.0 | **Última Atualização:** Setembro 2025 | **Status:** ✅ Produção
-
----
-
 ## 🔗 Links Úteis & Recursos
 
 #### 🏢 B2Bit API & Sistema
