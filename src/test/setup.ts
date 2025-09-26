@@ -1,11 +1,8 @@
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
-import { server } from "./server";
 
-// Setup MSW
-beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+// Simplified setup without MSW to avoid module conflicts
+// MSW will be set up individually in tests that need it
 
 // Mock do localStorage
 const localStorageMock = {

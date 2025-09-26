@@ -29,5 +29,13 @@ export default defineConfig({
         "eslint.config.js",
       ],
     },
+    // Simplified configuration to avoid module conflicts
+    isolate: true,
+    pool: "forks",
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
   },
 });

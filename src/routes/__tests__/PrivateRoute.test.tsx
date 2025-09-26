@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { PrivateRoute } from "../PrivateRoute";
 import { AuthContext } from "../../auth/useAuth";
@@ -42,6 +42,15 @@ describe("PrivateRoute Component", () => {
   const TestComponent = () => (
     <div data-testid="protected-content">Protected Content</div>
   );
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    cleanup(); // Clean up DOM before each test
+  });
+
+  afterEach(() => {
+    cleanup(); // Clean up DOM after each test
+  });
 
   it("should render loading state when loading is true", () => {
     const authValue = mockAuthContextValue({ loading: true });
@@ -103,10 +112,11 @@ describe("PrivateRoute Component", () => {
 
     expect(screen.getByTestId("protected-content")).toBeInTheDocument();
     expect(screen.getByText("Protected Content")).toBeInTheDocument();
+    // The navigation should not be present when user is authenticated
     expect(screen.queryByTestId("navigate")).not.toBeInTheDocument();
   });
 
-  it("should not render loading or redirect when transitioning from loading to authenticated", () => {
+  it("should not render loading or redirect when transitioning from loading to authenticated", async () => {
     const authValue = mockAuthContextValue({
       user: {
         id: 1,
@@ -130,6 +140,8 @@ describe("PrivateRoute Component", () => {
       </MockAuthProvider>
     );
 
+    // Wait for component to settle
+    await screen.findByTestId("protected-content");
     expect(screen.queryByText("Carregando...")).not.toBeInTheDocument();
     expect(screen.queryByTestId("navigate")).not.toBeInTheDocument();
     expect(screen.getByTestId("protected-content")).toBeInTheDocument();

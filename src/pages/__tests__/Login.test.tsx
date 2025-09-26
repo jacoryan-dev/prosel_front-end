@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, waitFor, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import Login from "../Login";
@@ -32,6 +32,11 @@ describe("Login Component", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    cleanup(); // Clean up DOM before each test
+  });
+
+  afterEach(() => {
+    cleanup(); // Clean up DOM after each test
   });
 
   it("should render login form correctly", () => {
