@@ -13,6 +13,10 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./src/test/setup.ts"],
     css: true,
+    // Disable browser mode and mocker to prevent MSW conflicts
+    browser: {
+      enabled: false,
+    },
     exclude: [
       "node_modules",
       "dist",
@@ -43,17 +47,21 @@ export default defineConfig({
         "**/handlers.ts.bak",
       ],
     },
-    // Optimized configuration for CI environment
+    // Optimized configuration for CI environment - disable features that load Node modules
     isolate: true,
     pool: "forks",
     poolOptions: {
       forks: {
         singleFork: true,
+        isolate: true,
       },
     },
     // Additional environment configuration
     env: {
       NODE_ENV: "test",
     },
+    // Disable unstable features that might load external modules
+    unstubEnvs: false,
+    unstubGlobals: false,
   },
 });
