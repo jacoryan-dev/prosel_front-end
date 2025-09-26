@@ -77,9 +77,7 @@ test.describe("Protected Routes E2E", () => {
     await page.goto("/");
 
     // Should show loading state briefly
-    await expect(
-      page.getByText("Carregando dados do usuário...")
-    ).toBeVisible();
+    await expect(page.getByText("Carregando...")).toBeVisible();
 
     // Clean up routes to avoid test ending issues
     await page.unrouteAll({ behavior: "ignoreErrors" });
