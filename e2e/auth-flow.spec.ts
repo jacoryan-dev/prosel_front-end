@@ -58,7 +58,7 @@ test.describe("Protected Routes E2E", () => {
   }) => {
     // Mock profile API with delay
     await page.route("**/auth/profile/", async (route) => {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       await route.fulfill({
         status: 200,
         contentType: "application/json",
@@ -77,10 +77,12 @@ test.describe("Protected Routes E2E", () => {
     await page.goto("/");
 
     // Should show loading state briefly
-    await expect(page.getByText("Carregando dados do usuário...")).toBeVisible();
-    
+    await expect(
+      page.getByText("Carregando dados do usuário...")
+    ).toBeVisible();
+
     // Clean up routes to avoid test ending issues
-    await page.unrouteAll({ behavior: 'ignoreErrors' });
+    await page.unrouteAll({ behavior: "ignoreErrors" });
   });
 
   test("should handle logout functionality", async ({ page }) => {

@@ -114,7 +114,7 @@ test.describe("Login Flow E2E", () => {
   test("should disable submit button during submission", async ({ page }) => {
     // Intercept with delay to simulate slow network
     await page.route("**/auth/login/", async (route) => {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       await route.fulfill({
         status: 200,
         contentType: "application/json",
