@@ -4,6 +4,10 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    // Prevent Node.js modules from being loaded in browser environment
+    global: "globalThis",
+  },
   test: {
     globals: true,
     environment: "jsdom",
@@ -15,6 +19,11 @@ export default defineConfig({
       "e2e",
       "**/*.e2e.{test,spec}.{js,ts}",
       "tests-examples",
+      // Exclude MSW files to prevent module loading issues
+      "**/server.ts",
+      "**/handlers.ts",
+      "**/server.ts.bak",
+      "**/handlers.ts.bak",
     ],
     coverage: {
       provider: "v8",
@@ -27,15 +36,24 @@ export default defineConfig({
         "vite.config.ts",
         "tailwind.config.js",
         "eslint.config.js",
+        // Also exclude MSW files from coverage
+        "**/server.ts", 
+        "**/handlers.ts",
+        "**/server.ts.bak",
+        "**/handlers.ts.bak",
       ],
     },
-    // Simplified configuration to avoid module conflicts
+    // Optimized configuration for CI environment
     isolate: true,
     pool: "forks",
     poolOptions: {
       forks: {
         singleFork: true,
       },
+    },
+    // Additional environment configuration
+    env: {
+      NODE_ENV: "test",
     },
   },
 });
