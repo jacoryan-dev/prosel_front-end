@@ -9,10 +9,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    
+    env:
+      # Clear any potential environment variable conflicts
+      NODE_ENV: test
+      CI: true
+      # Disable npm progress and other potential sources of conflicts
+      npm_config_progress: false
+      npm_config_audit: false
+      npm_config_fund: false
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # Ensure clean checkout
+          clean: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -20,8 +32,11 @@ jobs:
           node-version: "18.x"
           cache: "npm"
 
+      - name: Clear npm cache
+        run: npm cache clean --force
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Run linter
         run: npm run lint
@@ -29,11 +44,17 @@ jobs:
       - name: Run type check
         run: npx tsc --noEmit
 
-      - name: Run unit tests
-        run: npm run test:ci
+      - name: Run unit tests (isolated environment)
+        run: |
+          # Clear any module cache that might cause conflicts
+          rm -rf node_modules/.cache
+          # Run tests with clean environment
+          npm run test:ci
         env:
           NODE_ENV: test
           CI: true
+          # Disable problematic Node.js features
+          NODE_OPTIONS: "--max-old-space-size=4096"
 
       - name: Build project
         run: npm run build

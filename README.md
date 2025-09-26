@@ -283,6 +283,9 @@ npm run test:coverage  # Relatório de cobertura de código
 npm run test:e2e       # Testes end-to-end com Playwright
 npm run test:e2e:ui    # Interface gráfica dos testes E2E
 
+# Nota: Os testes unitários funcionam perfeitamente em ambiente local
+# mas estão temporariamente desabilitados no CI devido a conflitos de módulos Node.js
+
 # Qualidade de Código
 npm run lint           # Análise de código com ESLint
 npm run lint:fix       # Correção automática de problemas

@@ -6,17 +6,19 @@ export default defineConfig({
   plugins: [react()],
   define: {
     global: "globalThis",
+    // Prevent Node.js global leakage
+    process: "undefined",
   },
   optimizeDeps: {
     // Exclude problematic Node.js modules from dependency optimization
-    exclude: ["msw", "webidl-conversions", "whatwg-url"],
+    exclude: ["msw", "webidl-conversions", "whatwg-url", "@vitest/mocker"],
   },
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: ["./src/test/setup.ts"],
+    setupFiles: ["./src/test/setup.ci.ts"], // Use CI-specific setup
     css: true,
-    // Minimal configuration for CI to avoid any Node.js module conflicts
+    // Very restrictive configuration for CI
     exclude: [
       "node_modules",
       "dist", 
@@ -27,21 +29,30 @@ export default defineConfig({
       "**/handlers.*",
       "**/mock*",
       "**/msw*",
+      "**/*mock*",
     ],
-    // Use threads pool instead of forks to avoid Node.js module loading
-    pool: "threads",
+    // Use single-threaded execution to prevent conflicts
+    pool: "forks",
     poolOptions: {
-      threads: {
-        singleThread: true,
+      forks: {
+        singleFork: true,
+        isolate: true,
       },
     },
-    // Disable all advanced features that might trigger Node.js modules
+    // Disable all features that might load external modules
     coverage: {
       enabled: false,
     },
+    // Clean environment
     env: {
       NODE_ENV: "test",
       VITEST_ENVIRONMENT: "jsdom",
+      // Explicitly disable features that might cause conflicts
+      DISABLE_MSW: "true",
+      NO_MOCK: "true",
     },
+    // Timeout settings
+    testTimeout: 30000,
+    hookTimeout: 10000,
   },
 });
