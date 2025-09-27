@@ -41,6 +41,15 @@ Para testar a aplicação, use as credenciais fornecidas pela API B2Bit.
 
 ---
 
+## ⚠️ Observação Importante
+
+Tenho ciência de que **não é uma boa prática versionar arquivos `.env`** em um repositório público, pois eles geralmente contêm informações sensíveis, como chaves de API, credenciais e variáveis de configuração específicas do ambiente.  
+
+> No entanto, **neste projeto optei por incluir o arquivo `.env` de forma proposital**, com o objetivo de **facilitar o processo de avaliação** por parte dos revisores. Assim, não será necessário configurar manualmente variáveis de ambiente para executar e testar a aplicação.  
+
+Sei que em um ambiente real de produção, os arquivos `.env` **nunca devem ser versionados** e devem ser mantidos em segurança, utilizando ferramentas adequadas como **Git ignore**.
+
+
 ## 📋 Sobre o Projeto
 
 Uma aplicação web moderna desenvolvida para processo seletivo da **b2bit**. O sistema oferece uma plataforma completa para autenticação segura, gerenciamento de perfis de usuários e integração com a API da b2bit.
@@ -930,18 +939,6 @@ test("should complete login flow", async ({ page }) => {
 - ✅ Navegação por teclado
 - ✅ Labels e ARIA attributes
 - ✅ Foco visível em elementos interativos
-
-### 📊 Métricas de Qualidade
-
-```bash
-# Coverage Report (example)
-File                   | % Stmts | % Branch | % Funcs | % Lines
------------------------|---------|----------|---------|--------
-All files              |   92.31 |    85.71 |   88.89 |   92.31
- src/auth              |   95.45 |    90.00 |   93.33 |   95.45
- src/pages             |   91.30 |    82.35 |   85.71 |   91.30
- src/utils             |   89.47 |    80.00 |   87.50 |   89.47
-```
 
 ### 🚨 Testes em CI/CD
 
